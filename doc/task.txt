@@ -1,0 +1,83 @@
+Chylli
+
+I am going to give you a sample rails project to hone your skills.
+
+1) You will build a NEW Rails website which draws deeply off of integration with tasker.ly's API
+2) You can call it anything you want for now.  Ask Elton "where to put it" so I can see progress"
+3) Basic Site Description:
+a) Home Page:
+ i) sign up for membership
+ ii) See Inventory
+ iii) See recent "Activity"
+ iv) Login
+
+b) Inventory segmented by 'tags' (a data feature of taskerly) or state:
+ i) Color [tag]
+ ii) Length [tag]
+ iii) Style [tag]
+ iv) Brand [tag]
+ v) Type [tag]
+ vi) Available/Unavailable (State)
+eg.  ...com/inventory - lists all tags and states
+inventory/brown (a tag under group 'colour')
+inventory/available (a state)
+
+c) Activity
+ i) Shows Activity for all users in reverse chronological order  as a default
+ ii) can show activity by Inventory item if an item # is entered
+ iii) can show by "user" if user is selected
+
+d) Membership Signup - you develop this part on top of 'tasker.ly' "new user signup"
+ i) i set up a new instance of tasker.ly called railstest.tasker.ly 
+ ii) there is an API for new users, find out from taskerly guys (maybe leo or dom or neil - on how to get api info)
+ iii) we want users to report to a specific user in taskerly so see if that's possible as part of the api
+ iv) the signup page should be on your rails site.com/signup
+ v) for now, we are not implementing the payment part
+
+it will have a few components:
+
+1) Inventory (items with multiple pictures.  items have classifications based on 'tags')- database that will be used will be taskerly database, so you will work with taskerly api
+2) Inventory Status (State of a piece of inventory will be in Taskerly)
+3) Membership - a 'member' is going to be a "user" in a subdomain of taskerly that report to a particular "boss"
+4) Payment platform (Jappa can give you the 'authorize.net' info on how we run credit cards, but this will line up with it)
+
+
+To get started, 
+
+1) login to railstest.tasker.ly with the username railstestboss/18railstest
+
+2) Create Two new users
+a)  create a new user called "inventory manager" and write down username and password - you can use a fake email address for any of these
+b) create a new user called "membership manager"
+
+3) log out and log back in as "inventory manager"
+
+4) Create a new workflow at /workflows with 4 states - you can call them whatever you want
+
+5) Create a new workspace that uses this workflow
+
+6) Add new tasks to the workspace called Item 1, Item 2, Item 3
+
+7) Go to the settings of the workspace and select Group Tags
+ add 5 tag groups with the "Create new tag group here"
+ i) Color [tag] - Brown, Black, Red
+ ii) Length [tag] - Long Middle Short
+ iii) Style [tag] - Modern, Classic, Seventys Eightys
+ iv) Brand [tag] - Jon, India
+ v) Type [tag] - Synthetic, Natural
+
+8) Make sure each task has:
+a) one and only one tag from each tag group - mix them up a bit
+b) move the tasks to different states (but not complete)
+
+9) log out and log back in as the 'boss"
+
+10) go to the workspace settings page and add "user": "membership manager"
+
+11) log out and log back in as membership manager and make sure  you can see the tasks in the workspace
+
+12) contact leopoldo/dom/neil (cc'd) for taskerly api info as needed
+
+13) create the basics of your webapp before integrating with taskerly that I can see (ask Elton where to put it)
+
+More info coming.
