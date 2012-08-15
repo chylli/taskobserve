@@ -2,7 +2,7 @@ require 'rest-client'
 require 'json'
 
 class LogonController < ApplicationController
-  skip_before_filter :authorize
+  skip_before_filter :authorize, :only => [:new, :create]
 
   def new
   end
@@ -24,7 +24,8 @@ class LogonController < ApplicationController
     user.save
     session[:user_id] = user.id
 
-    render(:text => "#{user_name} #{session[:user_id]}")
+    redirect_to root_url
+
 
 
     
@@ -32,5 +33,7 @@ class LogonController < ApplicationController
   end
 
   def destroy
+    @user.delete
+    redirect_to root_url
   end
 end
