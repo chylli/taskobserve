@@ -1,5 +1,7 @@
 Taskobserve::Application.routes.draw do
 
+  get "root/index"
+
   get "test/new"
 
   controller :logon do
