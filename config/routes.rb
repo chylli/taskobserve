@@ -1,9 +1,10 @@
 Taskobserve::Application.routes.draw do
-  get "logon/new"
 
-  get "logon/create"
-
-  get "logon/destroy"
+  controller :logon do
+    get 'login' => :new
+    post 'login' => :create
+    delete 'logout' => :destroy
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
