@@ -1,4 +1,10 @@
 Taskobserve::Application.routes.draw do
+  get "logon/new"
+
+  get "logon/create"
+
+  get "logon/destroy"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
