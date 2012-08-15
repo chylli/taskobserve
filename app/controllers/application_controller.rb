@@ -6,14 +6,11 @@ class ApplicationController < ActionController::Base
   protected
 
   def authorize
-    if session[:user_id]
-    then
-      render(:text => "Welcome #{session[:user_id]}")
-    else
-      redirect_to login_url, :notice => "Please Log in"
+    user_id = session[:user_id]
+    unless user_id && @user = User.find(user_id)
+      return redirect_to login_url, :notice => "Please Log in"
     end
-    
-    
+
   end
 
 

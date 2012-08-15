@@ -1,5 +1,7 @@
 Taskobserve::Application.routes.draw do
 
+  get "test/new"
+
   controller :logon do
     get 'login' => :new
     post 'login' => :create
