@@ -11,17 +11,22 @@ class LogonController < ApplicationController
 
     user_name = params[:user_name]
     password = params[:password]
-    ret = RestClient.post "https://tasker.ly/session.json", :login => user_name, :password =>  password
+    ret = RestClient.post "https://railstest.tasker.ly/session.json", :login => user_name, :password =>  password
 
     ret = JSON.parse(ret)
     if ret["errors"] 
     then
-      redirect_to login_url, :status => 303, :notice => ret["errors"][0]
+      return redirect_to login_url, :status => 303, :notice => ret["errors"][0]
       #render(:text => "failed")
-    else
-      render(:text => "#{user_name} #{password}")
-      
     end
+
+    user = User.new(:name => user_name, :password => password)
+    user.save
+    session[:user_id] = user.id
+
+    render(:text => "#{user_name} #{session[:user_id]}")
+
+
     
 
   end
