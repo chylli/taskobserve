@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Task Observe application</title>
+  <title>Task Observe</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
+ <%= csrf_meta_tags %>
 </head>
 <body>
-<% if @user %>
-<% then %>
-  <%= link_to "Logout",logout_path, :method => :delete %>
-<% end %>
-<%= yield %>
+<body id="task">
+  <div id="banner">
+    <%= @page_title || "Welcome to Taskobserve, #{@user.name}" %><!-- <label id="code.depot.e.title"/> -->
+            <%= link_to "Logout",logout_path, :method => :delete %>
+  </div>
+  <div id="columns">
+    <div id="side">
+      <a href="http://www....">Home</a><br />
+      <a href="http://www..../faq">Questions</a><br />
+      <a href="http://www..../news">News</a><br />
+      <a href="http://www..../contact">Contact</a><br />
+
+    </div>
+    <div id="main">
+      <%= yield %><!-- <label id="code.depot.e.include"/> -->
+    </div>
+  </div>
+
+
 
 </body>
 </html>
