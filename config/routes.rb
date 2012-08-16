@@ -1,6 +1,9 @@
 Taskobserve::Application.routes.draw do
 
-  get "root/index"
+  controller :signup do
+    get 'signup' => :new
+    post 'signup' => :create
+  end
 
   get "test/new"
 
