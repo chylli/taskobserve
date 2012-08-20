@@ -1,6 +1,14 @@
 class SignupController < ApplicationController
   skip_before_filter :authorize
+
   def new
+    url = 'https://railstest.tasker.ly/users/new.json'
+    res = RestClient.get url, {:accept => :json}
+    res = JSON.parse res
+    @captcha = res["captcha"]
+    puts "x" * 80
+    puts @captcha
+
   end
 
   def create

@@ -75,9 +75,12 @@
 
 
 <p>
-<img src="https://railstest.tasker.ly/simple_captcha/simple_captcha?distortion=&amp;image_style=&amp;simple_captcha_key=235dab2d38287aacb8dffe19045685c6129e744e&amp;time=1345428550" alt="simple_captcha.jpg">
+
+<%= image_tag @captcha["image_url"], :alt => "simple_captcha.jpg" %>
 <br>
-<input class="text" id="user_captcha" name="user[captcha]" size="30" type="text" value=""><input id="user_captcha_key" name="user[captcha_key]" type="hidden" value="235dab2d38287aacb8dffe19045685c6129e744e">
+<input class="text" id="user_captcha" name="user[captcha]" size="30" type="text" value="">
+
+<input id="user_captcha_key" name="user[captcha_key]" type="hidden" value="<%= @captcha["key"] %>">
 <br>
 <label for="simple_captcha">(type the code from the image)</label>
 <br>
