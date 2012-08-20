@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
 
   before_filter :authorize
 
+  TASK_SITE = Taskobserve::Application.config.tasker_site
+
+
   protected
 
   def authorize
