@@ -1,26 +1,96 @@
+<div id="login" class="signup">
+<div class="content">
+<span class="heading">Sign up as a new user</span>
 <%= form_tag do %>
   <div class="field">
   <%= label_tag(:name, "Name") %>
-  <%= text_field_tag(:name) %>
+  <%= text_field_tag :name,'',:class => "text",:size => 30 %>
   </div>
   <div class="field">
   <%= label_tag(:login, "Login") %>
-  <%= text_field_tag(:login) %>
+  <%= text_field_tag :login, '',:class => "text", :size => 30 %>
   </div>
   <div class="field">
   <%= label_tag(:email, "Email") %>
-  <%= text_field_tag(:email) %>
+  <%= text_field_tag :email, '',:class => "text", :size => 30 %>
   </div>
+  <div id="emails">
+  </div>
+      <label><a href="#" onclick="$(&quot;#emails&quot;).append(&quot;\n  &lt;div class=\&quot;email\&quot;&gt;\n    \n      &lt;p&gt;\n        &lt;label for=\&quot;user_email_attributes__Email\&quot;&gt;Email&lt;/label&gt;\n        &lt;input class=\&quot;text\&quot; id=\&quot;user_email_attributes__email\&quot; name=\&quot;user[email_attributes][][email]\&quot; size=\&quot;30\&quot; type=\&quot;text\&quot; /&gt;\n        &lt;a class=\&quot;rightNote\&quot; href=\&quot;#\&quot; onclick=\&quot;remove_field($(this), '.email'); return false;\&quot;&gt;delete&lt;/a&gt;\n      &lt;/p&gt;\n    \n  &lt;/div&gt;\n\n&quot;);; return false;">Add Emails</a>
+      </label>
+
   <div class="field">
   <%= label_tag(:password, "Password") %>
-  <%= password_field_tag(:password) %>
+  <%= password_field_tag :password, '', :class => "text",:size => 30 %>
   </div>
   <div class="field">
   <%= label_tag(:password_confirmation, "Confirm Password") %>
-  <%= password_field_tag(:password_confirmation) %>
+  <%= password_field_tag :password_confirmation, '', :class => "text",:size => 30 %>
   </div>
+
+
+
+<label><!-- Copyright (c) 2007 [Sur http://expressica.com] -->
+
+<style type="text/CSS">
+
+  /*#simple_captcha{border: 1px solid #ccc; padding: 5px !important;}*/
+  /*#simple_captcha,*/
+  /*#simple_captcha div{display: table;}*/
+  /*#simple_captcha .simple_captcha_field,*/
+  /*#simple_captcha .simple_captcha_image{*/
+    /*border: 1px solid #ccc;*/
+    /*margin: 0px 0px 2px 0px !important;*/
+    /*padding: 0px !important;*/
+  /*}*/
+  /*#simple_captcha .simple_captcha_image img{*/
+    /*margin: 0px !important;*/
+    /*padding: 0px !important;*/
+    /*width: 110px !important;*/
+  /*}*/
+  /*#simple_captcha .simple_captcha_label{font-size: 12px;}*/
+  /*#simple_captcha .simple_captcha_field input{*/
+    /*width: 150px !important;*/
+    /*font-size: 16px;*/
+    /*border: none;*/
+    /*background-color: #efefef;*/
+  /*}*/
+</style>
+
+<!--<div id='simple_captcha'>-->
+  <!--<div class='simple_captcha_image'>-->
+    <!---->
+  <!--</div>-->
+
+  <!--<div class='simple_captcha_field'>-->
+    <!---->
+  <!--</div>-->
+
+  <!--<div class='simple_captcha_label'>-->
+    <!---->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+
+<p>
+<img src="https://railstest.tasker.ly/simple_captcha/simple_captcha?distortion=&amp;image_style=&amp;simple_captcha_key=235dab2d38287aacb8dffe19045685c6129e744e&amp;time=1345428550" alt="simple_captcha.jpg">
+<br>
+<input class="text" id="user_captcha" name="user[captcha]" size="30" type="text" value=""><input id="user_captcha_key" name="user[captcha_key]" type="hidden" value="235dab2d38287aacb8dffe19045685c6129e744e">
+<br>
+<label for="simple_captcha">(type the code from the image)</label>
+<br>
+<br>
+</p>
+</label>
+
+
   <div class="field">
-  <%= submit_tag("signup") %>
+  <%= submit_tag "signup",:class => "submit" %>
   </div>
 
 <% end %>
+
+</div>
+</div>
