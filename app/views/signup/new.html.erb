@@ -1,4 +1,11 @@
 <h1>Signup</h1>
+<% if flash[:error] %>
+<div class="errorExplanation" id="errorExplanation">
+<% flash[:error].each do |e| %>
+<p><%= e %></p>
+<% end %>
+</div>
+<% end %>
 <p id="notice"><%= notice %></p>
 <%= render 'form' %>
 

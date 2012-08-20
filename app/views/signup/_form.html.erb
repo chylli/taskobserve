@@ -4,28 +4,29 @@
 <%= form_tag do %>
   <div class="field">
   <%= label_tag(:name, "Name") %>
-  <%= text_field_tag :name,'',:class => "text",:size => 30 %>
+  <%= text_field_tag "user[name]",@tmp_user["name"],:class => "text",:size => 30 %>
   </div>
   <div class="field">
   <%= label_tag(:login, "Login") %>
-  <%= text_field_tag :login, '',:class => "text", :size => 30 %>
+  <%= text_field_tag "user[login]", @tmp_user["login"],:class => "text", :size => 30 %>
   </div>
   <div class="field">
   <%= label_tag(:email, "Email") %>
-  <%= text_field_tag :email, '',:class => "text", :size => 30 %>
+  <%= text_field_tag "user[email]", @tmp_user["email"],:class => "text", :size => 30 %>
   </div>
-  <div id="emails">
+<!--  <div id="emails">
   </div>
       <label><a href="#" onclick="$(&quot;#emails&quot;).append(&quot;\n  &lt;div class=\&quot;email\&quot;&gt;\n    \n      &lt;p&gt;\n        &lt;label for=\&quot;user_email_attributes__Email\&quot;&gt;Email&lt;/label&gt;\n        &lt;input class=\&quot;text\&quot; id=\&quot;user_email_attributes__email\&quot; name=\&quot;user[email_attributes][][email]\&quot; size=\&quot;30\&quot; type=\&quot;text\&quot; /&gt;\n        &lt;a class=\&quot;rightNote\&quot; href=\&quot;#\&quot; onclick=\&quot;remove_field($(this), '.email'); return false;\&quot;&gt;delete&lt;/a&gt;\n      &lt;/p&gt;\n    \n  &lt;/div&gt;\n\n&quot;);; return false;">Add Emails</a>
       </label>
+--> <!-- will implement it later -->
 
   <div class="field">
   <%= label_tag(:password, "Password") %>
-  <%= password_field_tag :password, '', :class => "text",:size => 30 %>
+  <%= password_field_tag "user[password]", @tmp_user["password"], :class => "text",:size => 30 %>
   </div>
   <div class="field">
   <%= label_tag(:password_confirmation, "Confirm Password") %>
-  <%= password_field_tag :password_confirmation, '', :class => "text",:size => 30 %>
+  <%= password_field_tag "user[password_confirmation]", @tmp_user["password_confirmation"], :class => "text",:size => 30 %>
   </div>
 
 
