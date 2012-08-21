@@ -23,7 +23,6 @@ class LogonController < ApplicationController
     user = User.new(:name => user_name, :password => password)
     user.save
     session[:user_id] = user.id
-
     redirect_to root_url
 
 

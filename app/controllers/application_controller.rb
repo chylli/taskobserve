@@ -10,7 +10,10 @@ class ApplicationController < ActionController::Base
 
   def authorize
     user_id = session[:user_id]
-    unless user_id && @user = User.find_by_id(user_id)
+    if user_id && @user = User.find_by_id(user_id)
+    then
+      Tasker.init(@user.name,@user.password)
+    else
       return redirect_to login_url, :notice => "Please Log in"
     end
 

@@ -13,6 +13,9 @@ Taskobserve::Application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  match "/inventory/:tag_or_state" => "inventory#show", :as => "inventory" 
+  get "/inventory" => "inventory#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
