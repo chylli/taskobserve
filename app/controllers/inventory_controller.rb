@@ -1,12 +1,27 @@
 class InventoryController < ApplicationController
   
   def show
-    if params[:tag_or_state] =~ /^task/ 
+    p = params[:tag_or_state] 
+    if p =~ /^task/ 
     then 
-      @tasks = get_tasks_filter_state(params[:tag_or_state])
+      @tasks = get_tasks_filter_state(p)
+      @title = "Tasks with state #{p}"
     else 
-      @tasks = get_tasks_filter_tag(params[:tag_or_state])
+      @tasks = get_tasks_filter_tag(p)
+      @title = "Tasks with tag #{p}"
     end
+
+    @tasks.each do |t|
+      tmp = t["tags"].map {|x| x.values}
+      tmp = tmp.join(", ")
+      t["tags"] = tmp
+
+      t["created_by"] = t["created_by"]["name"]
+
+      t["user"] = t["user"]["name"]
+
+    end
+
 
   end
 

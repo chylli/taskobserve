@@ -1,2 +1,17 @@
-<%= :tag_or_state %>
-<%= @tasks %>
+<h1><%= @title %></h1>
+<% ks = %w[description priority workflow_state_name tags created_by user] %>
+<table>
+<tr>
+  <% ks.each do |k| %>
+  <th><%= k %></th>
+  <% end %>
+</tr>
+
+  <% @tasks.each do |t| %>
+  <tr>
+    <% ks.each do |k| %>
+    <td><%= t[k]  %></td>
+    <% end %>
+  </tr>
+  <% end %>
+</table>
