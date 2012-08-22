@@ -1,7 +1,8 @@
 class InventoryController < ApplicationController
   
   def show
-    @value = if params[:tag_or_state] =~ /^task/ then "state" else "tag" end
+    @tasks = if params[:tag_or_state] =~ /^task/ then :state else get_tasks_filter_tag(params[:tag_or_state]) end
+
   end
 
   def index
@@ -10,5 +11,7 @@ class InventoryController < ApplicationController
   end
 
   private
-    
+  def get_tasks_filter_tag(tag)
+    Tasker.tasks(:filter_by_tags => tag)
+  end
 end

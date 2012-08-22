@@ -18,9 +18,12 @@ class Tasker
     puts @@base_url
   end
 
-  def self.tasks
+  def self.tasks(p=nil)
     url = @@base_url + Workspace_path + "/tasks.json"
-    ret = RestClient.get url, {:accept => :json}
+    ps = {:accept => :json}
+    ps[:params] = p if p 
+      
+    ret = RestClient.get url, ps
     JSON.parse(ret).map {|i| i["task"]}
   end
     
