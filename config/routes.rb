@@ -15,6 +15,8 @@ Taskobserve::Application.routes.draw do
 
   match "/inventory/:tag_or_state" => "inventory#show", :as => "inventory" 
   get "/inventory" => "inventory#index"
+
+  match "/activity/:type/:id" => "activity#show", :as => "activity"
   get "/activity" => "activity#index"
 
   # The priority is based upon order of creation:

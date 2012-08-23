@@ -36,14 +36,19 @@ class Tasker
   end
 
 
-  def self.activities
+  def self.activities(filter = nil)
     url = @@base_url + Workspace_path + '/activity_streams.json'
     ps = {:accept => :json, :params => {:filter_by_date => :all}}
 
     ret = RestClient.get url, ps
     ret = JSON.parse(ret)
+
+    if filter
+    then
+      ret.select! {|x| x["description_with_meta"]["meta"][filter[:type]]["id"].to_s == filter[:id]  }
+    end
+
     ret.each_index {|i| generate_link!(ret[i])}
-    puts ret
     
     ret
                                     
