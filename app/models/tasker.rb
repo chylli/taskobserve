@@ -22,8 +22,6 @@ class Tasker
     url = @@base_url + Workspace_path + "/tasks/current_tasks.json"
     ps = {:accept => :json}
     ps[:params] = p if p 
-    puts url
-    puts ps
     ret = RestClient.get url, ps
     JSON.parse(ret).map {|i| i["task"]}
   end
@@ -36,5 +34,16 @@ class Tasker
     States
   end
 
+
+  def self.activities
+    url = @@base_url + Workspace_path + '/activity_streams.json'
+    ps = {:accept => :json, :params => {:filter_by_date => :all}}
+
+    ret = RestClient.get url, ps
+    JSON.parse(ret)
+
+
+  end
+  
 
 end

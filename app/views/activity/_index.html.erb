@@ -1,0 +1,6 @@
+<h1>Activity</h1>
+<ul>
+<% @activities.each do |a| %>
+<li> <em> <%= a["date"] %> </em> <%= a["description"] %>  </li>
+<% end %>
+</ul>
