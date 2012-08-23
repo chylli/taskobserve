@@ -1,4 +1,4 @@
-<h1>Tags</h1>
+<h2>Tags</h2>
 <% @group_tags.each do |group,tags| %>
 <ul> <%= group %> 
 <% tags.each do |tag| %>
@@ -6,7 +6,7 @@
 <% end %>
 </ul>
 <% end %>
-<h1>States</h1>
+<h2>States</h2>
 <ul>
 <% @states.each do |state| %>
 <li> <%= link_to state, inventory_path(state) %> </li>
