@@ -9,8 +9,14 @@
 <body>
 <body id="task">
   <div id="banner">
-    <%= @page_title || "Welcome to Taskobserve, #{@user.name}" %><!-- <label id="code.depot.e.title"/> -->
-            <%= link_to "Logout",logout_path, :method => :delete %>
+    <%= @page_title %>
+    <% if @user %>
+    <% then %>
+      <%= link_to "Logout",logout_path, :method => :delete %>
+    <% else %>
+      <%= link_to "Login",login_path %>
+      <%= link_to "Signup", signup_path %>
+    <% end %>
   </div>
   <div id="columns">
     <div id="side">

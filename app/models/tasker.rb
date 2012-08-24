@@ -13,10 +13,12 @@ class Tasker
             }
 
   States = ["task request","task doing","task test","task finish"]
+  @@base_url = "https://inventory:3843054@#{Tasker_site}"
 
+
+  # called only when the update priviledge needed
   def self.init(user,password)
     @@base_url = "https://#{user}:#{password}@#{Tasker_site}"
-    puts @@base_url
   end
 
   def self.tasks(p=nil)
