@@ -1,14 +1,19 @@
 <h2>Tags</h2>
 <% @group_tags.each do |group,tags| %>
-<ul> <%= group %> 
-<% tags.each do |tag| %>
-<li><%= link_to tag, inventory_path(tag) %></li>
+  <div class="row show-grid"> 
+    <h3> 
+      <%= group %> 
+    </h3>
+    <% tags.each do |tag| %>
+      <div class="span3 data-original-title"><%= link_to tag, inventory_path(tag) %></div>
+    <% end %>
+  </div>
 <% end %>
-</ul>
-<% end %>
+
 <h2>States</h2>
-<ul>
+<div class="row"> 
 <% @states.each do |state| %>
-<li> <%= link_to state, inventory_path(state) %> </li>
+
+<div class="span3"> <%= link_to state, inventory_path(state) %> </div>
 <% end %>
-</ul>
+</div>
