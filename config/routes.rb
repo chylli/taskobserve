@@ -10,6 +10,7 @@ Taskobserve::Application.routes.draw do
   controller :logon do
     get 'login' => :new
     post 'login' => :create
+    #get 'logout' => :destroy
     delete 'logout' => :destroy
   end
 

@@ -4,6 +4,7 @@ require 'json'
 class LogonController < ApplicationController
   skip_before_filter :authorize, :only => [:new, :create]
 
+
   def new
   end
 
@@ -32,7 +33,11 @@ class LogonController < ApplicationController
   end
 
   def destroy
-    @user.delete
-    redirect_to root_url
+    if @user 
+    then 
+      @user.delete
+    end
+      redirect_to root_url
+
   end
 end

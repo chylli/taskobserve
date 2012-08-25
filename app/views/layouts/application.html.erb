@@ -1,37 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<html lang="en">    
+  <meta charset="utf-8">
   <title>Task Observe</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
- <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    "bootstrap" %>
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+  <%= stylesheet_link_tag    "bootstrap-responsive" %>
+  <%= csrf_meta_tag %>
 </head>
+
 <body>
-<body id="task">
-  <div id="banner">
-    <%= @page_title %>
-    <% if @user %>
-    <% then %>
-      <%= link_to "Logout",logout_path, :method => :delete %>
-    <% else %>
-      <%= link_to "Login",login_path %>
-      <%= link_to "Signup", signup_path %>
-    <% end %>
-  </div>
-  <div id="columns">
-    <div id="side">
-      <a href="/inventory">Inventory</a><br />
-      <a href="/activity">Activity</a><br />
-      <a href="/membership">Membership</a><br />
-      <a href="/payment">Payment</a><br />
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">Task Observe</a>
+        <div class="nav-collapse collapse">
+          <p class="navbar-text pull-right">
+          <% if @user %>
+          <% then %>
+            Logged in as <a href="#" class="navbar-link"><%= @user.name %></a>
+            <%= link_to "Logout",logout_path, :class => "navbar-link", :method => "delete" %>
+          <% else %>
+          
+          <%= link_to "Signup", signup_path, :class => "navbar-link" %>
 
-    </div>
-    <div id="main">
-      <%= yield %><!-- <label id="code.depot.e.include"/> -->
+          <% end %>
+
+          </p>
+
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="/inventory">Inventory</a></li>
+                <li><a href="/activity">Activity</a></li>
+                <li><a href="/membership">Membership</a></li>
+                <li><a href="/payment">Payment</a></li>
+              </ul>
+            </li>
+
+
+          </ul>
+
+          <% unless @user %>
+          <% then %>
+          <form class="navbar-form pull-right" method="post" action="/login">
+            <input class="span2" type="text" placeholder="Name" name="user_name">
+            <input class="span2" type="password" placeholder="Password" name="password">
+            <button type="submit" class="btn">Login</button>
+          </form>
+          <% end %>
+
+        </div><!--/.nav-collapse -->
+      </div>
     </div>
   </div>
 
+  <div class="container">
+    <div class="hero-unit">
+      <%= yield %>
+    </div>
+
+
+  </div>
+
+
+  <%= javascript_include_tag "application" %>
 
 
 </body>
+
+
+
+
 </html>
