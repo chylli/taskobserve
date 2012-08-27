@@ -1,6 +1,6 @@
 <h1><%= @title %></h1>
 <% ks = %w[description priority workflow_state_name tags created_by user] %>
-<table>
+<table class="table table-striped">
 <tr>
   <% ks.each do |k| %>
   <th><%= k %></th>
