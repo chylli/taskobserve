@@ -1,7 +1,7 @@
 class SignupController < ApplicationController
 
   def new
-    url = "https://#{TASK_SITE}/users/new.json"
+    url = "https://#{Tasker::Tasker_site}/users/new.json"
     res = RestClient.get url, {:accept => :json}
     res = JSON.parse res
     @captcha = res["captcha"]
@@ -11,7 +11,7 @@ class SignupController < ApplicationController
   def create
     @tmp_user = params[:user]
     post_param = {"user" => @tmp_user}.to_json
-    ret = RestClient.post("https://#{TASK_SITE}/users.json", post_param, :content_type => :json, :accept => :json) {|response| response}
+    ret = RestClient.post("https://#{Tasker::Tasker_site}/users.json", post_param, :content_type => :json, :accept => :json) {|response| response}
     
     case ret.code
     when 200
