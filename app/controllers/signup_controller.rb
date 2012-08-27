@@ -1,5 +1,4 @@
 class SignupController < ApplicationController
-  skip_before_filter :authorize
 
   def new
     url = "https://#{TASK_SITE}/users/new.json"

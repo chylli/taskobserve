@@ -2,17 +2,15 @@
 <html>
 <head>
   <title>Task Observe</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "bootstrap", :media => "all" %>
+  <%= javascript_include_tag "bootstrap" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="loginbody">
-<% if @user %>
-<% then %>
-  <%= link_to "Logout",logout_path, :method => :delete %>
-<% end %>
+<div id="container">
+<div class="hero-unit">
 <%= yield %>
+</div>
 </div>
 </body>
 </html>
