@@ -37,6 +37,13 @@ class Tasker
     States
   end
 
+  def self.task(id)
+    url = @@base_url + "/tasks/#{id}.json"
+    ret = RestClient.get url
+    ret = JSON.parse(ret)
+    ret["task"]
+  end
+
 
   def self.activities(filter = nil)
     url = @@base_url + Workspace_path + '/activity_streams.json'
@@ -55,6 +62,19 @@ class Tasker
     ret
                                     
   end
+
+
+  def self.get_img(id,name)
+    url = @@base_url + "/assets/#{id}"
+    new_name = "#{id}_#{name}"
+    path = "app/assets/images/#{new_name}"
+    unless File.exists?(path)
+      open(path,"wb") {|f| f << RestClient.get(url)}
+    end
+    return {path: "/assets/#{new_name}", alt: name}
+
+  end
+
 
   private
 
