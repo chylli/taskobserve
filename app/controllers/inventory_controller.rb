@@ -11,15 +11,16 @@ class InventoryController < ApplicationController
       @title = "Tasks with tag #{p}"
     end
 
-    @tasks.each do |t|
-      tmp = t["tags"].map {|x| x.values}
+    @tasks.each do |task|
+      tmp = task["tags"].map {|x| x.values}
       tmp = tmp.join(", ")
-      t["tags"] = tmp
+      task["tags"] = tmp
 
-      t["created_by"] = t["created_by"]["name"]
+      task["created_by"] = task["created_by"]["name"]
 
-      t["user"] = t["user"]["name"]
-
+      task["user"] = task["user"]["name"]
+      task[:detail] = Tasker.task(task["id"])
+      task[:imgs] = get_task_imgs(task[:detail])
     end
   end
 
@@ -58,17 +59,9 @@ class InventoryController < ApplicationController
       @tag_info.delete("Others")
     end
 
-    assets = @task["assets"]
 
-    @imgs = []
-
-    assets.each do | t |
-      if /^image/ === t["data_content_type"]
-      then
-        @imgs << Tasker.get_img(t["id"],t["data_file_name"])
-      end
-
-    end
+    
+    @imgs = get_task_imgs(@task)
 
     @title = "Task #{@task['id']}: #{@task['description']}"
 
@@ -86,6 +79,28 @@ class InventoryController < ApplicationController
     @tasks = tasks.select do |x|
       x["workflow_state_name"] == state
     end
+  end
+
+  # return the array of images in attachments. if no images, return nil
+  def get_task_imgs(task)
+    assets = task["assets"] || []
+    imgs = []
+
+    assets.each do | t |
+      if /^image/ === t["data_content_type"]
+      then
+        imgs << Tasker.get_img(t["id"],t["data_file_name"])
+      end
+      
+    end
+
+    if imgs.length == 0
+    then
+      imgs = nil
+    end
+    
+    return imgs
+
   end
 
 

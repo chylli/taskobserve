@@ -84,6 +84,7 @@ GEM
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rmagick (2.13.1)
     sass (3.2.0)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -116,6 +117,7 @@ DEPENDENCIES
   mysql2
   rails (= 3.2.8)
   rest-client (>= 1.6.7)
+  rmagick (>= 2.13.1)
   sass-rails (~> 3.2.3)
   uglifier (>= 1.0.3)
   unicorn

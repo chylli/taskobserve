@@ -38,3 +38,4 @@ gem 'unicorn'
 # To use debugger
 # gem 'debugger'
 gem 'rest-client', '>= 1.6.7'
+gem 'rmagick', '>=2.13.1'

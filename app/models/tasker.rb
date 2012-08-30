@@ -1,4 +1,5 @@
 require "rest-client"
+require "RMagick"
 class Tasker
   # attr_accessible :title, :body
   Tasker_site = "railstest.tasker.ly"
@@ -67,11 +68,20 @@ class Tasker
   def self.get_img(id,name)
     url = @@base_url + "/assets/#{id}"
     new_name = "#{id}_#{name}"
+    thumb_name = "thumb_#{new_name}"
     path = "app/assets/images/#{new_name}"
+    thumb_path = "app/assets/images/#{thumb_name}"
     unless File.exists?(path)
       open(path,"wb") {|f| f << RestClient.get(url)}
     end
-    return {path: "/assets/#{new_name}", alt: name}
+
+    unless File.exists?(thumb_path)
+      img =  Magick::Image.read(path).first      
+      thumb = img.resize(100,100)
+      thumb.write(thumb_path)
+    end
+
+    return {path: "/assets/#{new_name}", alt: name, thumb_path: "/assets/#{thumb_name}"}
 
   end
 
