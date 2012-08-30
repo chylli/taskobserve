@@ -21,6 +21,7 @@ class InventoryController < ApplicationController
       task["user"] = task["user"]["name"]
       task[:detail] = Tasker.task(task["id"])
       task[:imgs] = get_task_imgs(task[:detail])
+      task[:imgs].sort! {|x,y| x[:alt] <=> y[:alt]} if task[:imgs]
     end
   end
 
