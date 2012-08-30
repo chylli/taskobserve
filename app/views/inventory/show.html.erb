@@ -20,7 +20,7 @@
     <td><%= link_to "activity",activity_path(:task,t["id"]) %>   </td>
     <td><%= link_to "details", item_path("#{t['id']}-#{t['description']}") %></td>
     <td>
-      <% if t[:imgs] %>
+      <% if t[:imgs].length > 0 %>
       <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
         <a href="<%= t[:imgs][0][:path]%>" title="<%= t[:imgs][0][:alt] %>" rel="gallery">
           <%= image_tag t[:imgs][0][:thumb_path], :width => 100, :height => 100, :alt => t[:imgs][0][:alt] %>

@@ -95,10 +95,6 @@ class InventoryController < ApplicationController
       
     end
 
-    if imgs.length == 0
-    then
-      imgs = nil
-    end
     
     return imgs
 
