@@ -7,13 +7,13 @@ class LogonControllerTest < ActionController::TestCase
   end
 
   test "should get create" do
-    get :create
-    assert_response :success
+    post :create
+    assert_redirected_to login_url
   end
 
   test "should get destroy" do
-    get :destroy
-    assert_response :success
+    delete :destroy
+    assert_redirected_to root_url
   end
 
 end
