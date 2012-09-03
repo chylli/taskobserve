@@ -7,8 +7,8 @@ class SignupControllerTest < ActionController::TestCase
   end
 
   test "should get create" do
-    get :create
-    assert_response :success
+    post :create
+    assert_redirected_to :action => "new"
   end
 
 end
