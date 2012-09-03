@@ -86,6 +86,19 @@ class Tasker
   end
 
 
+  def self.get_custom_fields(id)
+    url = @@base_url + "/tasks/#{id}/custom_field_values.json"
+    ret = RestClient.get url
+    ret = JSON.parse(ret)
+    fields = []
+    ret.each do | f |
+      f = f["custom_field_value"]
+      fields << {f["custom_field"]["name"] => f["value"]}
+    end
+    fields
+
+  end
+
   private
 
   def self.generate_link!(activity)

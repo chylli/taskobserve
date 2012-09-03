@@ -14,6 +14,14 @@ class TaskerTest < ActiveSupport::TestCase
 
   end
 
+
+  test "get custom fields" do
+    fields = Tasker.get_custom_fields(TaskId)
+    field_names = fields.map {|f| f.keys.first}
+    assert field_names.include?("Price")
+  end
+
+
   # test "the truth" do
   #   assert true
   # end

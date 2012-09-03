@@ -1,4 +1,22 @@
 <h2><%= @title %></h2>
+
+<div class="container-fluid">
+<h3> Custom fields</h3>
+<table class="table table-striped">
+  <tr>
+    <th>  Field </th> 
+    <th> Value </th>
+  </tr>
+  <% @fields.each do |f| %>
+  <tr>
+  <td> <%= f.keys.first %></td>
+  <td> <%= f.values.first %></td>
+  </tr>
+  <% end %>
+</table>
+
+
+</div>
 <div class="container-fluid">
 <h3> Tags </h3>
 <% @tag_info.each do |group,tags| %>

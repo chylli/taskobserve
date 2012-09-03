@@ -60,12 +60,12 @@ class InventoryController < ApplicationController
       @tag_info.delete("Others")
     end
 
-
-    
+  
     @imgs = get_task_imgs(@task)
 
     @title = "Task #{@task['id']}: #{@task['description']}"
 
+    @fields = Tasker.get_custom_fields(@task['id'])
 
   end
 
