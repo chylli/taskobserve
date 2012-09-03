@@ -12,4 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require bootstrap.js
+//= require load-image.min.js
+//= require bootstrap-image-gallery.min.js
+
+
+
+
+//###    require_tree .
