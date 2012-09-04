@@ -30,8 +30,14 @@ class Tasker
     JSON.parse(ret).map {|i| i["task"]}
   end
     
+
   def self.group_tags
-    return Group_tags
+    url = @@base_url + Workspace_path + "/group_tags.json"
+    ret = RestClient.get url
+    ret = JSON.parse(ret)
+    group_tags = {}
+    ret.each {|k| group_tags[k["group_tag"]["name"]] = k["group_tag"]["tags"].map {|t| t["name"]}}
+    group_tags
   end
 
   def self.states
