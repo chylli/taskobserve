@@ -21,6 +21,10 @@ class TaskerTest < ActiveSupport::TestCase
     assert field_names.include?("Price")
   end
 
+  test "get users" do
+    users = Tasker.users
+    assert users.length > 0
+  end
 
   # test "the truth" do
   #   assert true

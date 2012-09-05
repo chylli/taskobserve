@@ -1,0 +1,13 @@
+<h2> Users </h2>
+<table class = "table table-striped">
+  <% @users.each do |u| %>
+  <tr>
+    <td><%= u['display_name'] %></td>
+    <td><%= link_to "activities", activity_path("user",u["id"]) %></td>
+  </tr>
+
+  <% end %>
+
+
+</table>
+

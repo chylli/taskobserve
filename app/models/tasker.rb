@@ -105,6 +105,13 @@ class Tasker
 
   end
 
+  def self.users
+    url = @@base_url + Workspace_path + '/shared_tag_users.json'
+    ret = RestClient.get url
+    ret = JSON.parse(ret)
+    ret = ret.map {|u| u["user"] }
+  end
+  
   private
 
   def self.generate_link!(activity)

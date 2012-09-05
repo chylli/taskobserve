@@ -14,6 +14,11 @@ Taskobserve::Application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  controller :membership do
+    get "/membership" => :index
+  end
+    
+  
   match "/inventory/item/:id" => "inventory#item" , :constraints => {:id => /\d+.*/}, :as => "item"
   match "/inventory/:tag_or_state" => "inventory#show", :as => "inventory" 
   get "/inventory" => "inventory#index"
