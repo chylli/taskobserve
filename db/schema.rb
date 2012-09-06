@@ -11,9 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120815051528) do
+ActiveRecord::Schema.define(:version => 20120906073619) do
 
-  create_table "users", :force => true do |t|
+  create_table "login_users", :force => true do |t|
     t.string   "name"
     t.string   "password"
     t.datetime "created_at", :null => false

@@ -15,9 +15,9 @@ class SignupController < ApplicationController
     
     case ret.code
     when 200
-      user = User.new(:name => @tmp_user["name"], :password => @tmp_user["password"])
-      user.save
-      session[:user_id] = user.id
+      login_user = LoginUser.new(:name => @tmp_user["name"], :password => @tmp_user["password"])
+      login_user.save
+      session[:login_user_id] = login_user.id
       redirect_to root_url
     else
       error = JSON.parse(ret)

@@ -21,17 +21,17 @@ class LogonController < ApplicationController
       #render(:text => "failed")
     end
 
-    user = User.new(:name => user_name, :password => password)
-    user.save
-    session[:user_id] = user.id
+    login_user = LoginUser.new(:name => user_name, :password => password)
+    login_user.save
+    session[:login_user_id] = login_user.id
     redirect_to root_url
 
   end
 
   def destroy
-    if @user 
+    if @login_user 
     then 
-      @user.delete
+      @login_user.delete
     end
       redirect_to root_url
 

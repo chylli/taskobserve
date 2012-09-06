@@ -6,12 +6,12 @@ class ApplicationController < ActionController::Base
   protected
 
   def authorize
-    user_id = session[:user_id]
+    login_user_id = session[:login_user_id]
     @page_title = "Welcome to Taskobserve"
-    if user_id && @user = User.find_by_id(user_id)
+    if login_user_id && @login_user = LoginUser.find_by_id(login_user_id)
     then
       #Tasker.init(@user.name,@user.password)
-      @page_title = @page_title + ", #{@user.name}"
+      @page_title = @page_title + ", #{@login_user.name}"
     # else
      # return redirect_to login_url, :notice => "Please Log in"
     end
