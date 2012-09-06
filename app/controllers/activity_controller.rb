@@ -4,6 +4,7 @@ class ActivityController < ApplicationController
   end
 
   def show
+
     @activities = Tasker.activities(:type => params[:type], :id => params[:id])
   end
 

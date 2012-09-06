@@ -54,7 +54,18 @@ class Tasker
 
 
   def self.activities(filter = nil)
-    url = @@base_url + Workspace_path + '/activity_streams.json'
+    workspace_path = Workspace_path
+    if filter && filter[:type] == "task"
+    then
+      task = self.task(filter[:id])
+      workspace_id = task['shared_tags'][0]['id']
+      workspace_path = "/shared_tags/#{workspace_id}"
+    end
+    
+    
+    url = @@base_url + workspace_path + '/activity_streams.json'
+    puts url
+    
     ps = {:accept => :json, :params => {:filter_by_date => :all}}
 
     ret = RestClient.get url, ps
@@ -169,10 +180,18 @@ class Tasker
     task_meta = meta["task"]
     task_string = "<a href=\"/activity/task/#{task_meta['id']}\">#{task_meta['description']}</a>"
     shared_tag_meta = meta["shared_tag"]
-
+    to_user = meta["to_user"]
+    to_user = "<a href=\"/activity/user/#{to_user['id']}\">#{to_user['display_name']}</a>" if to_user
+    user2 = meta["user2"]
+    user2 = "<a href=\"/activity/user/#{user2['id']}\">#{user2['display_name']}</a>" if user2
+    
+    
     desc_string.sub!('{user}',user_string)
     desc_string.sub!('{task}',task_string)
-    desc_string.sub!('{shared_tag}', Workspace_name)
+    desc_string.sub!('{shared_tag}', shared_tag_meta['name']) if shared_tag_meta
+    desc_string.sub!('{to_user}', to_user) if to_user
+    desc_string.sub!('{user2}', user2) if user2
+    
     activity["description_with_link"] = desc_string
 
   end
