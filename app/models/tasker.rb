@@ -64,7 +64,6 @@ class Tasker
     
     
     url = @@base_url + workspace_path + '/activity_streams.json'
-    puts url
     
     ps = {:accept => :json, :params => {:filter_by_date => :all}}
 
