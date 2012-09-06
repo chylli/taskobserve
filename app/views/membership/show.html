@@ -1,0 +1,16 @@
+<h2> <%= @title %> </h2>
+<h3> Workspaces </h3>
+
+<table class = "table table-striped">
+  <% @shared_tags.each do |t| %>
+  <tr>
+    <td><%= t['name'] %></td>
+  </tr>
+  <% end %>
+</table>
+
+<h3> Tasks </h3>
+<%= debug @tasks %>
+<%= debug @shared_tags %>
+<%= debug @user %>
+

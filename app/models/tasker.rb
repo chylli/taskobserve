@@ -106,11 +106,35 @@ class Tasker
   end
 
   def self.users
-    url = @@base_url + Workspace_path + '/shared_tag_users.json'
+    url = @@base_url + "/users.json"
     ret = RestClient.get url
     ret = JSON.parse(ret)
     ret = ret.map {|u| u["user"] }
   end
+  
+  def self.user(id)
+    users = self.users()
+    user = users.select {|u| u['id'] == id.to_i}
+    user.first
+    
+  end
+  
+  def self.user_shared_tags(id)
+    url = @@base_url + "/users/#{id}/shared_tags.json"
+    ret = RestClient.get url
+    ret = JSON.parse(ret)
+    shared_tags = ret.map {|t| t['shared_tag']}
+  end
+  
+
+  def self.user_tasks(id)
+    url = @@base_url + "/users/#{id}/tasks/current_tasks.json"
+    ret = RestClient.get url
+    ret = JSON.parse(ret)
+    tasks = ret.map {|t| t['task'] }
+    
+  end
+  
   
   private
 

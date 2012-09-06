@@ -16,6 +16,7 @@ Taskobserve::Application.routes.draw do
 
   controller :membership do
     get "/membership" => :index
+    match "/membership/:id" => :show, :as => "membership"
   end
     
   

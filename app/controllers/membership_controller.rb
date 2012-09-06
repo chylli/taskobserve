@@ -4,4 +4,12 @@ class MembershipController < ApplicationController
     @title = 'Membership'
   end
 
+  def show
+    id = params[:id]
+    @user = Tasker.user(id)
+    @title = "#{@user['display_name']}'s information"
+    @shared_tags = Tasker.user_shared_tags(id)
+    @tasks = Tasker.user_tasks(id)
+  end
+  
 end
