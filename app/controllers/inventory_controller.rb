@@ -11,18 +11,6 @@ class InventoryController < ApplicationController
       @title = "Tasks with tag #{p}"
     end
 
-    @tasks.each do |task|
-      tmp = task["tags"].map {|x| x.values}
-      tmp = tmp.join(", ")
-      task["tags"] = tmp
-
-      task["created_by"] = task["created_by"]["name"]
-
-      task["user"] = task["user"]["name"]
-      task[:detail] = Tasker.task(task["id"])
-      task[:imgs] = get_task_imgs(task[:detail])
-      task[:imgs].sort! {|x,y| x[:alt] <=> y[:alt]} if task[:imgs]
-    end
   end
 
   def index
@@ -61,7 +49,7 @@ class InventoryController < ApplicationController
     end
 
   
-    @imgs = get_task_imgs(@task)
+    @imgs = Tasker.get_task_imgs(@task)
 
     @title = "Task #{@task['id']}: #{@task['description']}"
 
@@ -82,23 +70,6 @@ class InventoryController < ApplicationController
     end
   end
 
-  # return the array of images in attachments. if no images, return nil
-  def get_task_imgs(task)
-    assets = task["assets"] || []
-    imgs = []
-
-    assets.each do | t |
-      if /^image/ === t["data_content_type"]
-      then
-        imgs << Tasker.get_img(t["id"],t["data_file_name"])
-      end
-      
-    end
-
-    
-    return imgs
-
-  end
 
 
 end

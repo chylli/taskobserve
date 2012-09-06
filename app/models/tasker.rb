@@ -27,7 +27,8 @@ class Tasker
     ps = {:accept => :json}
     ps[:params] = p if p 
     ret = RestClient.get url, ps
-    JSON.parse(ret).map {|i| i["task"]}
+    tasks = JSON.parse(ret).map {|i| i["task"]}
+    tasks = self.process_img_of_tasks(tasks)
   end
     
 
@@ -70,7 +71,7 @@ class Tasker
                                     
   end
 
-
+  # get image from assets
   def self.get_img(id,name)
     url = @@base_url + "/assets/#{id}"
     new_name = "#{id}_#{name}"
@@ -132,8 +133,28 @@ class Tasker
     ret = RestClient.get url
     ret = JSON.parse(ret)
     tasks = ret.map {|t| t['task'] }
+    tasks = self.process_img_of_tasks(tasks)
     
   end
+  
+  # return the array of images in attachments. if no images, return nil
+  def self.get_task_imgs(task)
+    assets = task["assets"] || []
+    imgs = []
+
+    assets.each do | t |
+      if /^image/ === t["data_content_type"]
+      then
+        imgs << Tasker.get_img(t["id"],t["data_file_name"])
+      end
+      
+    end
+
+    
+    return imgs
+
+  end
+
   
   
   private
@@ -156,6 +177,23 @@ class Tasker
 
   end
 
+  def self.process_img_of_tasks(tasks)
+    tasks.each do |task|
+      tmp = task["tags"].map {|x| x.values}
+      tmp = tmp.join(", ")
+      task["tags"] = tmp
+
+      task["created_by"] = task["created_by"]["name"]
+
+      task["user"] = task["user"]["name"]
+      task[:detail] = self.task(task["id"])
+      task[:imgs] = get_task_imgs(task[:detail])
+      task[:imgs].sort! {|x,y| x[:alt] <=> y[:alt]} if task[:imgs]
+    end
+
+    tasks
+    
+  end
   
 
 end
