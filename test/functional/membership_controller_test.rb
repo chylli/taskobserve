@@ -5,7 +5,10 @@ class MembershipControllerTest < ActionController::TestCase
     get "index"
     assert_response :success
   end
-  # test "the truth" do
-  #   assert true
-  # end
+
+  test "get user" do
+    get "show", {:id => 1801}
+    assert_response :success
+  end
+  
 end
