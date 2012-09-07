@@ -53,7 +53,6 @@ class Tasker
   end
 
 
-  # todo: user's activity can be fetched directly
   def self.activities(filter = nil)
     workspace_path = Workspace_path
     if filter && filter[:type] == "task"
@@ -62,9 +61,14 @@ class Tasker
       workspace_id = task['shared_tags'][0]['id']
       workspace_path = "/shared_tags/#{workspace_id}"
     end
-    
-    
+
     url = @@base_url + workspace_path + '/activity_streams.json'
+    
+    if filter && filter[:type] == "user"
+    then
+      url = @@base_url + "/users/#{filter[:id]}/activity_streams.json"
+    end
+
     
     ps = {:accept => :json, :params => {:filter_by_date => :all}}
 
