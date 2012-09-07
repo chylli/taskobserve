@@ -53,6 +53,7 @@ class Tasker
   end
 
 
+  # todo: user's activity can be fetched directly
   def self.activities(filter = nil)
     workspace_path = Workspace_path
     if filter && filter[:type] == "task"
