@@ -7,9 +7,9 @@
   <% ks.each do |k| %>
   <th><%= k %></th>
   <% end %>
-  <th> activity </th>
-  <th> details </th>
-  <th> images </th>
+  <th> Activity </th>
+  <th> Details </th>
+  <th> Images </th>
 </tr>
 
   <% @tasks.each do |t| %>
@@ -17,8 +17,8 @@
     <% ks.each do |k| %>
     <td><%= t[k]  %></td>
     <% end %>
-    <td><%= link_to "activity",activity_path(:task,t["id"]) %>   </td>
-    <td><%= link_to "details", item_path("#{t['id']}-#{t['description']}") %></td>
+    <td><%= link_to "Activity",activity_path(:task,t["id"]) %>   </td>
+    <td><%= link_to "Details", item_path("#{t['id']}-#{t['description']}") %></td>
     <td>
       <% if t[:imgs].length > 0 %>
       <div id="gallery" data-toggle="modal-gallery" data-target="#modal-gallery">
