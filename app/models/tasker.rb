@@ -180,14 +180,14 @@ class Tasker
     meta = desc_meta["meta"]
 
     user_meta = meta["user"]
-    user_string = "<a href=\"/activity/user/#{user_meta['id']}\">#{user_meta['display_name']}</a>"
+    user_string = "<a href=\"/activity/user/#{user_meta['id']}\" >#{user_meta['display_name']}</a>"
     task_meta = meta["task"]
-    task_string = "<a href=\"/activity/task/#{task_meta['id']}\">#{task_meta['description']}</a>"
+    task_string = "<a href=\"/activity/task/#{task_meta['id']}\" >#{task_meta['description']}</a>"
     shared_tag_meta = meta["shared_tag"]
     to_user = meta["to_user"]
-    to_user = "<a href=\"/activity/user/#{to_user['id']}\">#{to_user['display_name']}</a>" if to_user
+    to_user = "<a href=\"/activity/user/#{to_user['id']}\" >#{to_user['display_name']}</a>" if to_user
     user2 = meta["user2"]
-    user2 = "<a href=\"/activity/user/#{user2['id']}\">#{user2['display_name']}</a>" if user2
+    user2 = "<a href=\"/activity/user/#{user2['id']}\" >#{user2['display_name']}</a>" if user2
     
     
     desc_string.sub!('{user}',user_string)

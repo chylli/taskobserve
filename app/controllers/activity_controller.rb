@@ -17,7 +17,9 @@ class ActivityController < ApplicationController
     @title2 = "#{params[:type]} <em>#{@title}</em> activity"
     @title = "#{params[:type]} #{@title} activity"
 
-    
+    if params[:modal]
+      render :layout => false
+    end
   end
 
 end

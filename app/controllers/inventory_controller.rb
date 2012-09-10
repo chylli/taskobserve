@@ -55,6 +55,9 @@ class InventoryController < ApplicationController
 
     @fields = Tasker.get_custom_fields(@task['id'])
 
+    if params[:modal]
+      render :layout => false    
+    end
   end
 
 
