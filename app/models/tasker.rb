@@ -15,6 +15,12 @@ class Tasker
 
   States = ["task request","task doing","task test","task finish"]
   @@base_url = "https://inventory:3843054@#{Tasker_site}"
+  @@tasker_cookies = nil
+
+  # get tasker.ly's cookies
+  def self.cookies
+    @@tasker_cookies
+  end
 
 
   # called only when the update priviledge needed
@@ -26,7 +32,7 @@ class Tasker
     url = @@base_url + Workspace_path + "/tasks/current_tasks.json"
     ps = {:accept => :json}
     ps[:params] = p if p 
-    ret = RestClient.get url, ps
+    ret = get url, ps
     tasks = JSON.parse(ret).map {|i| i["task"]}
     tasks = self.process_img_of_tasks(tasks)
   end
@@ -34,7 +40,7 @@ class Tasker
 
   def self.group_tags
     url = @@base_url + Workspace_path + "/group_tags.json"
-    ret = RestClient.get url
+    ret = get url
     ret = JSON.parse(ret)
     group_tags = {}
     ret.each {|k| group_tags[k["group_tag"]["name"]] = k["group_tag"]["tags"].map {|t| t["name"]}}
@@ -47,7 +53,7 @@ class Tasker
 
   def self.task(id)
     url = @@base_url + "/tasks/#{id}.json"
-    ret = RestClient.get url
+    ret = get url
     ret = JSON.parse(ret)
     ret["task"]
   end
@@ -72,7 +78,7 @@ class Tasker
     
     ps = {:accept => :json, :params => {:filter_by_date => :all}}
 
-    ret = RestClient.get url, ps
+    ret = get url, ps
     ret = JSON.parse(ret)
 
     if filter
@@ -94,7 +100,7 @@ class Tasker
     path = "app/assets/images/#{new_name}"
     thumb_path = "app/assets/images/#{thumb_name}"
     unless File.exists?(path)
-      open(path,"wb") {|f| f << RestClient.get(url)}
+      open(path,"wb") {|f| f << get(url)}
     end
 
     unless File.exists?(thumb_path)
@@ -110,7 +116,7 @@ class Tasker
 
   def self.get_custom_fields(id)
     url = @@base_url + "/tasks/#{id}/custom_field_values.json"
-    ret = RestClient.get url
+    ret = get url
     ret = JSON.parse(ret)
     fields = []
     ret.each do | f |
@@ -123,7 +129,7 @@ class Tasker
 
   def self.users
     url = @@base_url + "/users.json"
-    ret = RestClient.get url
+    ret = get url
     ret = JSON.parse(ret)
     ret = ret.map {|u| u["user"] }
   end
@@ -137,7 +143,7 @@ class Tasker
   
   def self.user_shared_tags(id)
     url = @@base_url + "/users/#{id}/shared_tags.json"
-    ret = RestClient.get url
+    ret = get url
     ret = JSON.parse(ret)
     shared_tags = ret.map {|t| t['shared_tag']}
   end
@@ -145,7 +151,7 @@ class Tasker
 
   def self.user_tasks(id)
     url = @@base_url + "/users/#{id}/tasks/current_tasks.json"
-    ret = RestClient.get url
+    ret = get url
     ret = JSON.parse(ret)
     tasks = ret.map {|t| t['task'] }
     tasks = self.process_img_of_tasks(tasks)
@@ -174,6 +180,20 @@ class Tasker
   
   private
 
+  def self.get(*args)
+    cookies = {:cookies => @@tasker_cookies}
+    if args.last.instance_of? Hash
+      args.last.merge!(cookies)
+    else
+      args << cookies
+    end
+
+    res = RestClient.get(*args)
+    @@tasker_cookies = res.cookies
+    res
+  end
+    
+  
   def self.generate_link!(activity)
     desc_meta = activity["description_with_meta"]
     desc_string = desc_meta["description"]
