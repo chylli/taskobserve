@@ -2,27 +2,30 @@ require 'test_helper'
 
 class TaskerTest < ActiveSupport::TestCase
   TaskId = 320808
-  
+
+  def setup
+    @tasker = Tasker.new()
+  end
   test "tasks" do
-    tasks = Tasker.tasks
+    tasks = @tasker.tasks
     assert tasks.length > 0
   end
 
   test "task" do
-    task = Tasker.task(TaskId)
+    task = @tasker.task(TaskId)
     assert task["id"] == TaskId
 
   end
 
 
   test "get custom fields" do
-    fields = Tasker.get_custom_fields(TaskId)
+    fields = @tasker.get_custom_fields(TaskId)
     field_names = fields.map {|f| f.keys.first}
     assert field_names.include?("Price")
   end
 
   test "get users" do
-    users = Tasker.users
+    users = @tasker.users
     assert users.length > 0
   end
 

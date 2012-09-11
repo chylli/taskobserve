@@ -2,11 +2,11 @@
 class ActivityController < ApplicationController
   def index
     @title = 'Activity'
-    @activities = Tasker.activities
+    @activities = @tasker.activities
   end
 
   def show
-    @activities = Tasker.activities(:type => params[:type], :id => params[:id])
+    @activities = @tasker.activities(:type => params[:type], :id => params[:id])
     if params[:type] == "user"
     then
       @title = @activities[0]['description_with_meta']['meta']['user']['display_name']

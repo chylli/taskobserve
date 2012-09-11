@@ -1,16 +1,16 @@
 class MembershipController < ApplicationController
   def index
-    @users = Tasker.users
+    @users = @tasker.users
     @title = 'Membership'
   end
 
   def show
     id = params[:id]
-    @user = Tasker.user(id)
+    @user = @tasker.user(id)
     @title = "#{@user['display_name']}'s information"
-    @shared_tags = Tasker.user_shared_tags(id)
-    @tasks = Tasker.user_tasks(id)
-    @activities = Tasker.activities(:type => 'user', :id => id)
+    @shared_tags = @tasker.user_shared_tags(id)
+    @tasks = @tasker.user_tasks(id)
+    @activities = @tasker.activities(:type => 'user', :id => id)
   end
   
 end

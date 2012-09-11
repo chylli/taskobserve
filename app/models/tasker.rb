@@ -1,6 +1,8 @@
 require "rest-client"
 require "RMagick"
 class Tasker
+  attr_reader :cookies
+  
   # attr_accessible :title, :body
   Tasker_site = "railstest.tasker.ly"
   Workspace_path = "/shared_tags/443"
@@ -14,32 +16,31 @@ class Tasker
             }
 
   States = ["task request","task doing","task test","task finish"]
-  @@base_url = "https://inventory:3843054@#{Tasker_site}"
-  @@tasker_cookies = nil
+  
+  def initialize(args = {})
+    @base_url = "https://inventory:3843054@#{Tasker_site}"
+    @cookies = nil
 
-  # get tasker.ly's cookies
-  def self.cookies
-    @@tasker_cookies
+    if args[:user] && args[:password]
+      @base_url = "https://#{args[:user]}:#{args[:password]}@#{Tasker_site}"
+    elsif args[:cookies] && args[:cookies] != ''
+      @base_url = "https://#{Tasker_site}"
+      @cookies = args[:cookies]
+    end
   end
-
-
-  # called only when the update priviledge needed
-  def self.init(user,password)
-    @@base_url = "https://#{user}:#{password}@#{Tasker_site}"
-  end
-
-  def self.tasks(p=nil)
-    url = @@base_url + Workspace_path + "/tasks/current_tasks.json"
+  
+  def tasks(p=nil)
+    url = @base_url + Workspace_path + "/tasks/current_tasks.json"
     ps = {:accept => :json}
     ps[:params] = p if p 
     ret = get url, ps
     tasks = JSON.parse(ret).map {|i| i["task"]}
-    tasks = self.process_img_of_tasks(tasks)
+    tasks = process_img_of_tasks(tasks)
   end
     
 
-  def self.group_tags
-    url = @@base_url + Workspace_path + "/group_tags.json"
+  def group_tags
+    url = @base_url + Workspace_path + "/group_tags.json"
     ret = get url
     ret = JSON.parse(ret)
     group_tags = {}
@@ -47,32 +48,32 @@ class Tasker
     group_tags
   end
 
-  def self.states
+  def states
     States
   end
 
-  def self.task(id)
-    url = @@base_url + "/tasks/#{id}.json"
+  def task(id)
+    url = @base_url + "/tasks/#{id}.json"
     ret = get url
     ret = JSON.parse(ret)
     ret["task"]
   end
 
 
-  def self.activities(filter = nil)
+  def activities(filter = nil)
     workspace_path = Workspace_path
     if filter && filter[:type] == "task"
     then
-      task = self.task(filter[:id])
+      task = task(filter[:id])
       workspace_id = task['shared_tags'][0]['id']
       workspace_path = "/shared_tags/#{workspace_id}"
     end
 
-    url = @@base_url + workspace_path + '/activity_streams.json'
+    url = @base_url + workspace_path + '/activity_streams.json'
     
     if filter && filter[:type] == "user"
     then
-      url = @@base_url + "/users/#{filter[:id]}/activity_streams.json"
+      url = @base_url + "/users/#{filter[:id]}/activity_streams.json"
     end
 
     
@@ -93,8 +94,8 @@ class Tasker
   end
 
   # get image from assets
-  def self.get_img(id,name)
-    url = @@base_url + "/assets/#{id}"
+  def get_img(id,name)
+    url = @base_url + "/assets/#{id}"
     new_name = "#{id}_#{name}"
     thumb_name = "thumb_#{new_name}"
     path = "app/assets/images/#{new_name}"
@@ -114,8 +115,8 @@ class Tasker
   end
 
 
-  def self.get_custom_fields(id)
-    url = @@base_url + "/tasks/#{id}/custom_field_values.json"
+  def get_custom_fields(id)
+    url = @base_url + "/tasks/#{id}/custom_field_values.json"
     ret = get url
     ret = JSON.parse(ret)
     fields = []
@@ -127,46 +128,46 @@ class Tasker
 
   end
 
-  def self.users
-    url = @@base_url + "/users.json"
+  def users
+    url = @base_url + "/users.json"
     ret = get url
     ret = JSON.parse(ret)
     ret = ret.map {|u| u["user"] }
   end
   
-  def self.user(id)
-    users = self.users()
+  def user(id)
+    users = users()
     user = users.select {|u| u['id'] == id.to_i}
     user.first
     
   end
   
-  def self.user_shared_tags(id)
-    url = @@base_url + "/users/#{id}/shared_tags.json"
+  def user_shared_tags(id)
+    url = @base_url + "/users/#{id}/shared_tags.json"
     ret = get url
     ret = JSON.parse(ret)
     shared_tags = ret.map {|t| t['shared_tag']}
   end
   
 
-  def self.user_tasks(id)
-    url = @@base_url + "/users/#{id}/tasks/current_tasks.json"
+  def user_tasks(id)
+    url = @base_url + "/users/#{id}/tasks/current_tasks.json"
     ret = get url
     ret = JSON.parse(ret)
     tasks = ret.map {|t| t['task'] }
-    tasks = self.process_img_of_tasks(tasks)
+    tasks = process_img_of_tasks(tasks)
     
   end
   
   # return the array of images in attachments. if no images, return nil
-  def self.get_task_imgs(task)
+  def get_task_imgs(task)
     assets = task["assets"] || []
     imgs = []
 
     assets.each do | t |
       if /^image/ === t["data_content_type"]
       then
-        imgs << Tasker.get_img(t["id"],t["data_file_name"])
+        imgs << get_img(t["id"],t["data_file_name"])
       end
       
     end
@@ -176,25 +177,24 @@ class Tasker
 
   end
 
-  
-  
   private
 
-  def self.get(*args)
-    cookies = {:cookies => @@tasker_cookies}
+  def get(*args)
+    cookies_hash = {:cookies => @cookies}
     if args.last.instance_of? Hash
-      args.last.merge!(cookies)
+      args.last.merge!(cookies_hash)
     else
-      args << cookies
+      args << cookies_hash
     end
 
     res = RestClient.get(*args)
-    @@tasker_cookies = res.cookies
+    @cookies = res.cookies
+    @base_url = "https://#{Tasker_site}"
     res
   end
     
   
-  def self.generate_link!(activity)
+  def generate_link!(activity)
     desc_meta = activity["description_with_meta"]
     desc_string = desc_meta["description"]
     meta = desc_meta["meta"]
@@ -220,7 +220,7 @@ class Tasker
 
   end
 
-  def self.process_img_of_tasks(tasks)
+  def process_img_of_tasks(tasks)
     tasks.each do |task|
       tmp = task["tags"].map {|x| x.values}
       tmp = tmp.join(", ")
@@ -229,7 +229,7 @@ class Tasker
       task["created_by"] = task["created_by"]["name"]
 
       task["user"] = task["user"]["name"]
-      task[:detail] = self.task(task["id"])
+      task[:detail] = task(task["id"])
       task[:imgs] = get_task_imgs(task[:detail])
       task[:imgs].sort! {|x,y| x[:alt] <=> y[:alt]} if task[:imgs]
     end
