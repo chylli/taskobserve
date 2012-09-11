@@ -7,7 +7,7 @@
   <% ks.each do |k| %>
   <th><%= k %></th>
   <% end %>
-  <th> Activity </th>
+  <th> Last Activity </th>
   <th> Details </th>
   <th> Images </th>
 </tr>
@@ -17,7 +17,7 @@
     <% ks.each do |k| %>
     <td><%= t[k]  %></td>
     <% end %>
-    <td><%= link_to "Activity",activity_path(:task,t["id"],:modal => 1), :'data-toggle' => "modal" %>   </td>
+    <td><%= link_to Date.parse(t['updated_at']).strftime('%b %d, %Y'),activity_path(:task,t["id"],:modal => 1), :'data-toggle' => "modal" %>   </td>
     <td><%= link_to "Details", item_path("#{t['id']}-#{t['description']}", :modal => 1),:'data-toggle' => "modal" %></td>
     <td>
       <% if t[:imgs].length > 0 %>
