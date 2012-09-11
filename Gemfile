@@ -39,3 +39,8 @@ gem 'unicorn'
 # gem 'debugger'
 gem 'rest-client', '>= 1.6.7'
 gem 'rmagick', '>=2.13.1'
+
+group :test do
+  gem 'ruby-prof'
+  gem 'test-unit'
+end
