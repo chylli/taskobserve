@@ -17,6 +17,9 @@ Taskobserve::Application.routes.draw do
   controller :membership do
     get "/membership" => :index
     match "/membership/:id" => :show, :as => "membership"
+    match "/membership/:id/shared_tags" => :shared_tags, :as => "membership_shared_tags"
+    match "/membership/:id/tasks" => :tasks, :as => "membership_tasks"
+    match "/membership/:id/activities" => :activities, :as => "membership_activities"
   end
     
   

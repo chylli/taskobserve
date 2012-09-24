@@ -1,20 +1,65 @@
 <h2> <%= @title %> </h2>
 <h3> Workspaces </h3>
-
-<table class = "table table-striped">
-  <% @shared_tags.each do |t| %>
-  <tr>
-    <td><%= t['name'] %></td>
-  </tr>
-  <% end %>
-</table>
-
+<div class="container" id = "workspaces_container">
+Loading ... 
+</div>
 <h3> Tasks </h3>
-<%= render 'inventory/show' %>
+<div class="container" id = "tasks_container">
+Loading ...
+</div>
 
 <h3> Activity </h3>
-<%= render 'activity/index' %>
+<div class="container" id = "activity_container">
+Loading ...
+</div>
 
 
+<script type="text/javascript"><!--
+
+get_real_data = function(item,url) {
+
+    replace_data = function(data) {
+        change = function(){
+            $(item).html(data);
+            $(item).slideDown('slow'); 
+        }
+        $(item).slideUp('slow',change); 
+    }
+    $.get(url,{},replace_data)
+}
+
+get_real_data("#workspaces_container","<%= membership_shared_tags_path(params[:id])%>");
+get_real_data("#tasks_container","<%= membership_tasks_path(params[:id])%>");
+get_real_data("#activity_container","<%= membership_activities_path(params[:id])%>");
+// $.get("<%= membership_shared_tags_path(params[:id])%>",
+//       {},
+//       function(res)
+//           {
+//           change = function(){
+//               $('#workspaces_container').html(res);
+//               $('#workspaces_container').slideDown('slow'); 
+//           }
+//           $('#workspaces_container').slideUp('slow',change); 
+// //          $('#workspaces_container > #content').html(res);
+// //          $('#workspace_container > .progress').slideUp('slow');
+// //          $('#workspace_container > #content').toggle('slow');
+// //          $('#workspaces_container').html(res);
+//             $('#workspaces_container').slideDown('slow');
+//           });
+//$.get("<%= membership_tasks_path(params[:id])%>",
+//      {},
+//      function(res)
+//          {
+//          $('#tasks_container').html(res);
+//          });
+//$.get("<%= membership_activities_path(params[:id])%>",
+//      {},
+//      function(res)
+//          {
+//          $('#activity_container').html(res);
+//          });
+
+//-->
+</script>
 
 

@@ -8,9 +8,24 @@ class MembershipController < ApplicationController
     id = params[:id]
     @user = @tasker.user(id)
     @title = "#{@user['display_name']}'s information"
-    @shared_tags = @tasker.user_shared_tags(id)
-    @tasks = @tasker.user_tasks(id)
-    @activities = @tasker.activities(:type => 'user', :id => id)
+    # @shared_tags = @tasker.user_shared_tags(id)
+    # @tasks = @tasker.user_tasks(id)
+    # @activities = @tasker.activities(:type => 'user', :id => id)
+  end
+
+  def shared_tags
+    @shared_tags = @tasker.user_shared_tags(params[:id])
+    render :layout => false
+  end
+  
+  def tasks
+    @tasks = @tasker.user_tasks(params[:id])
+    render 'inventory/_show',:layout => false
+  end
+  
+  def activities
+    @activities = @tasker.activities(:type => 'user', :id => params[:id])
+    render 'activity/_index',:layout => false
   end
   
 end
