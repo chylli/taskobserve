@@ -1,6 +1,5 @@
 // Dependence: bootstrap, jquery
-
-$(document).ready(function() {
+active_modal = function() {
 
     // Support for AJAX loaded modal window.
     // Focuses on first input textbox after it loads the window.
@@ -15,5 +14,5 @@ $(document).ready(function() {
 	    }).success(function() { $('input:text:visible:first').focus(); });
 	}
     });
-    
-});
+}
+$(document).ready(active_modal);

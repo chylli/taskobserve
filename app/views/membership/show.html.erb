@@ -21,6 +21,9 @@ get_real_data = function(item,url) {
     replace_data = function(data) {
         change = function(){
             $(item).html(data);
+            
+            active_modal(); //regiester modal
+
             $(item).slideDown('slow'); 
         }
         $(item).slideUp('slow',change); 
