@@ -12,14 +12,57 @@ Loading ...
 <div class="container" id = "activity_container">
 Loading ...
 </div>
-<%= javascript_include_tag "membership" %> 
 
-<%= coffee_script_tag do %>
 
-window.get_real_data("#workspaces_container","<%= membership_shared_tags_path(params[:id])%>")
-window.get_real_data("#tasks_container","<%= membership_tasks_path(params[:id])%>")
-window.get_real_data("#activity_container","<%= membership_activities_path(params[:id])%>")
+<script type="text/javascript"><!--
 
-<% end %>
+get_real_data = function(item,url) {
+
+    replace_data = function(data) {
+        change = function(){
+            $(item).html(data);
+            
+            active_modal(); //regiester modal
+
+            $(item).slideDown('slow'); 
+        }
+        $(item).slideUp('slow',change); 
+    }
+    $.get(url,{},replace_data)
+}
+
+get_real_data("#workspaces_container","<%= membership_shared_tags_path(params[:id])%>");
+get_real_data("#tasks_container","<%= membership_tasks_path(params[:id])%>");
+get_real_data("#activity_container","<%= membership_activities_path(params[:id])%>");
+// $.get("<%= membership_shared_tags_path(params[:id])%>",
+//       {},
+//       function(res)
+//           {
+//           change = function(){
+//               $('#workspaces_container').html(res);
+//               $('#workspaces_container').slideDown('slow'); 
+//           }
+//           $('#workspaces_container').slideUp('slow',change); 
+// //          $('#workspaces_container > #content').html(res);
+// //          $('#workspace_container > .progress').slideUp('slow');
+// //          $('#workspace_container > #content').toggle('slow');
+// //          $('#workspaces_container').html(res);
+//             $('#workspaces_container').slideDown('slow');
+//           });
+//$.get("<%= membership_tasks_path(params[:id])%>",
+//      {},
+//      function(res)
+//          {
+//          $('#tasks_container').html(res);
+//          });
+//$.get("<%= membership_activities_path(params[:id])%>",
+//      {},
+//      function(res)
+//          {
+//          $('#activity_container').html(res);
+//          });
+
+//-->
+</script>
 
 
