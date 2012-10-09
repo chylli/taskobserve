@@ -60,6 +60,10 @@ class Tasker
   end
 
 
+  # activities can be workspace's activities, can also be a user's activities
+  # default is Default workspace's activities, can be set by filter
+  # 
+
   def activities(filter = nil)
     workspace_path = Workspace_path
     if filter && filter[:type] == "task"
