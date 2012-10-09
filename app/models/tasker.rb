@@ -64,8 +64,8 @@ class Tasker
     workspace_path = Workspace_path
     if filter && filter[:type] == "task"
     then
-      task = task(filter[:id])
-      workspace_id = task['shared_tags'][0]['id']
+      t = task(filter[:id])
+      workspace_id = t['shared_tags'][0]['id']
       workspace_path = "/shared_tags/#{workspace_id}"
     end
 
