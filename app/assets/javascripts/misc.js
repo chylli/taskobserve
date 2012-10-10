@@ -14,9 +14,21 @@ get_real_data = function(item,url) {
 }
 
 function more_activities(url) {
+    item = '#activity_container';
+
+    slide1 = function() {
+        $(item).html('Loading...');        
+        $(item).slideDown('slow',slide2);
+    }
+
+    slide2 = function() {
+        get_real_data(item,url)
+    }
+
     f = function() {
         $('#more_activities').slideUp('slow');
-        get_real_data("#activity_container",url);
+        $(item).slideUp('slow',slide1);
+
     }
     return f
 }

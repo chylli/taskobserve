@@ -9,20 +9,10 @@ class ActivityController < ApplicationController
   end
 
   def show
-    @activities = @tasker.activities(:type => params[:type], :id => params[:id])
+    @activities = @tasker.activities(:type => params[:type], :id => params[:id], :filter_by_date => params[:filter_by_date])
     if @activities.length == 0
     then
-      if params[:type] == 'user'
-      then
-        obj = @tasker.user(params[:id])
-        @title = obj['display_name']
-      elsif params[:type] == 'task'
-      then
-        obj = @tasker.task(params[:id])
-        @title = obj['description']
-      end
-      
-      
+        @title = params[:id]
     elsif params[:type] == "user"
     then
       @title = @activities[0]['description_with_meta']['meta']['user']['display_name']
@@ -34,7 +24,7 @@ class ActivityController < ApplicationController
     @title = "#{params[:type]} #{@title} activity"
 
     if params[:modal]
-      render :layout => false
+      render '_index',:layout => false
     end
   end
 

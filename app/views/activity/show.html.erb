@@ -1,12 +1,21 @@
-<div class="modal-header">
-	<a class="close" data-dismiss="modal">×</a>
-	<h3><%= raw(@title2) %> </h3>
+<h2>Activity</h2>
+<h3><%= raw(@title2) %> </h3>
+
+<% unless params[:filter_by_date] == 'all' %>
+<div class="container" id = "more_activities">
+  This is <%= params[:filter_by_date] || 'today' %>'s activity, do you want to see more activities? Click <div class='btn' id = 'click_more_activities'> here </div> . 
 </div>
+<% end %>
 
-
-<div class="modal-body">
+<div class="container" id = "activity_container">
 <%= render "index" %>
 </div>
-<div class="modal-footer">
-	<a class="btn" data-dismiss="modal">Close</a>
-</div>
+
+<script type="text/javascript"><!--
+
+
+$('#click_more_activities').click(more_activities("<%= activity_path(params[:type],params[:id], :filter_by_date => :all, :modal => 1)%>"));
+-->
+</script>
+
+
