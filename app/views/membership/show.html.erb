@@ -22,29 +22,11 @@ Loading ...
 
 <script type="text/javascript"><!--
 
-get_real_data = function(item,url) {
 
-    replace_data = function(data) {
-        change = function(){
-            $(item).html(data);
-            
-            active_modal(); //regiester modal
-
-            $(item).slideDown('slow'); 
-        }
-        $(item).slideUp('slow',change); 
-    }
-    $.get(url,{},replace_data)
-}
-
-more_activities = function() {
-    $('#more_activities').slideUp('slow');
-    get_real_data("#activity_container","<%= membership_activities_path(params[:id], :filter_by_date => :all)%>");
-}
 get_real_data("#workspaces_container","<%= membership_shared_tags_path(params[:id])%>");
 get_real_data("#tasks_container","<%= membership_tasks_path(params[:id])%>");
 get_real_data("#activity_container","<%= membership_activities_path(params[:id])%>");
-$('#click_more_activities').click(more_activities)
+$('#click_more_activities').click(more_activities("<%= membership_activities_path(params[:id], :filter_by_date => :all)%>"));
 
 
 // $.get("<%= membership_shared_tags_path(params[:id])%>",
