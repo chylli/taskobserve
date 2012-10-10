@@ -1,3 +1,6 @@
+<% unless @activities.length > 0 %>
+There is no activities.
+<% end %>
 <ul>
 <% @activities.each do |a| %>
 <li> <em> <%= a["date"] %> </em> <%= raw(a["description_with_link"]) %>  </li>

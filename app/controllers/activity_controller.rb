@@ -2,12 +2,25 @@
 class ActivityController < ApplicationController
   def index
     @title = 'Activity'
-    @activities = @tasker.activities
+    @activities = @tasker.activities(:filter_by_date => params[:filter_by_date])
   end
 
   def show
     @activities = @tasker.activities(:type => params[:type], :id => params[:id])
-    if params[:type] == "user"
+    if @activities.length == 0
+    then
+      if params[:type] == 'user'
+      then
+        obj = @tasker.user(params[:id])
+        @title = obj['display_name']
+      elsif params[:type] == 'task'
+      then
+        obj = @tasker.task(params[:id])
+        @title = obj['description']
+      end
+      
+      
+    elsif params[:type] == "user"
     then
       @title = @activities[0]['description_with_meta']['meta']['user']['display_name']
     elsif params[:type] == "task"

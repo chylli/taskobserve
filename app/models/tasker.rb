@@ -63,9 +63,15 @@ class Tasker
   # activities can be workspace's activities, can also be a user's activities
   # default is Default workspace's activities, can be set by filter
   # 
-
+  # filter_by_date, default value is today
   def activities(filter = nil)
     workspace_path = Workspace_path
+    filter_by_date = nil
+    if filter
+    then
+      filter_by_date = filter[:filter_by_date]
+    end
+    
     if filter && filter[:type] == "task"
     then
       t = task(filter[:id])
@@ -81,12 +87,12 @@ class Tasker
     end
 
     
-    ps = {:accept => :json, :params => {:filter_by_date => :all}}
+    ps = {:accept => :json, :params => {:filter_by_date => filter_by_date}}
 
     ret = get url, ps
     ret = JSON.parse(ret)
 
-    if filter
+    if filter && filter[:type]
     then
       ret.select! {|x| x["description_with_meta"]["meta"][filter[:type]]["id"].to_s == filter[:id]  }
     end

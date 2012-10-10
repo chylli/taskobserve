@@ -24,7 +24,7 @@ class MembershipController < ApplicationController
   end
   
   def activities
-    @activities = @tasker.activities(:type => 'user', :id => params[:id])
+    @activities = @tasker.activities(:type => 'user', :id => params[:id], :filter_by_date => params[:filter_by_date])
     render 'activity/_index',:layout => false
   end
   

@@ -9,6 +9,12 @@ Loading ...
 </div>
 
 <h3> Activity </h3>
+<% unless params[:filter_by_date] == 'all' %>
+<div class="container" id = "more_activities">
+  This is <%= params[:filter_by_date] || 'today' %>'s activity, do you want to see more activities? Click <div class='btn' id = 'click_more_activities'> here </div> . 
+</div>
+<% end %>
+
 <div class="container" id = "activity_container">
 Loading ...
 </div>
@@ -31,9 +37,16 @@ get_real_data = function(item,url) {
     $.get(url,{},replace_data)
 }
 
+more_activities = function() {
+    $('#more_activities').slideUp('slow');
+    get_real_data("#activity_container","<%= membership_activities_path(params[:id], :filter_by_date => :all)%>");
+}
 get_real_data("#workspaces_container","<%= membership_shared_tags_path(params[:id])%>");
 get_real_data("#tasks_container","<%= membership_tasks_path(params[:id])%>");
 get_real_data("#activity_container","<%= membership_activities_path(params[:id])%>");
+$('#click_more_activities').click(more_activities)
+
+
 // $.get("<%= membership_shared_tags_path(params[:id])%>",
 //       {},
 //       function(res)
