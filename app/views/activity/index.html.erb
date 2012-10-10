@@ -1,2 +1,18 @@
 <h2>Activity</h2>
+<% unless params[:filter_by_date] == 'all' %>
+<div class="container" id = "more_activities">
+  This is <%= params[:filter_by_date] || 'today' %>'s activity, do you want to see more activities? Click <div class='btn' id = 'click_more_activities'> here </div> . 
+</div>
+<% end %>
+
+<div class="container" id = "activity_container">
 <%= render "index" %>
+</div>
+
+<script type="text/javascript"><!--
+
+
+$('#click_more_activities').click(more_activities("<%= url_for(:action => 'index', :filter_by_date => :all, :modal => 1)%>"));
+-->
+</script>
+

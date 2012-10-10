@@ -3,6 +3,9 @@ class ActivityController < ApplicationController
   def index
     @title = 'Activity'
     @activities = @tasker.activities(:filter_by_date => params[:filter_by_date])
+    if params[:modal]
+      render '_index',:layout => false
+    end
   end
 
   def show
