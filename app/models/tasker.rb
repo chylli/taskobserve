@@ -7,6 +7,9 @@ class Tasker
   Tasker_site = "railstest.tasker.ly"
   Workspace_path = "/shared_tags/443"
   Workspace_name = "task_workspace"
+  Inventory_name = "inventory"
+  Inventory_password = "123456"
+  
   Group_tags = {
       "Color" => %w[Brown Black Red],
       "Length" => %w[Long Middle Short],
@@ -18,7 +21,7 @@ class Tasker
   States = ["task request","task doing","task test","task finish"]
   
   def initialize(args = {})
-    @base_url = "https://inventory:3843054@#{Tasker_site}"
+    @base_url = "https://#{Inventory_name}:#{Inventory_password}@#{Tasker_site}"
     @cookies = nil
 
     if args[:user] && args[:password]
